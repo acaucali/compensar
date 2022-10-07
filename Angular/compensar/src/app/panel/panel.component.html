@@ -1,0 +1,26 @@
+<div class="sidebar-container" style="background-color: #f1eeee;">
+    <br>
+    <ul class="sidebar-navigation">
+      
+      <li>
+        <a routerLink="/inicio">
+          <i class="fa fa-home" aria-hidden="true" style="font-size: 15px;"></i> Inicio
+        </a>
+      </li>
+      <li>
+        <a routerLink="/registros">
+          <i class="fas fa-table" aria-hidden="true" style="font-size: 15px;"></i> &nbsp; Registros
+        </a>
+      </li>
+                  
+      <li *ngIf="authService.hasRole('ROLE_ADMIN')">
+        <a routerLink="/usuarios" style="font-size: 15px;">
+          <i class="fa fa-users" aria-hidden="true"></i> Usuarios
+        </a>
+      </li>
+     
+    
+    </ul>
+  </div>
+  
+  

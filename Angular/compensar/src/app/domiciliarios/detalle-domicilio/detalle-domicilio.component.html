@@ -1,0 +1,294 @@
+<div *ngIf="modalservice.modal" class="abrir-modal animacion fadeIn">
+
+    <div *ngIf="modalservice.modal" class="modal my-5" tabindex="-1" role="dialog" style="display:block;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background-color: #1e71b8;">
+                    <h5 class="modal-title">{{titulo}}</h5>
+                    <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form #domiciliarioForm="ngForm">
+                            <ul class="nav nav-tabs my-3" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos" aria-selected="true"><span style="font-size: medium; color: black;">Datos Básicos</span></a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link " id="profile-tab" data-toggle="tab" href="#prestaciones" role="tab" aria-controls="prestaciones" aria-selected="false"><span style="font-size: medium; color: black;">Prestaciones</span></a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link " id="contact-tab" data-toggle="tab" href="#disponibilidad" role="tab" aria-controls="disponibilidad" aria-selected="false"><span style="font-size: medium; color: black;">Disponibilidad</span></a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link " id="cuenta-tab" data-toggle="tab" href="#cuenta" role="tab" aria-controls="cuenta" aria-selected="false"><span style="font-size: medium; color: black;">Cuentas</span></a>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-tab">
+                                    <div class="form-row"> 
+                                        <div class="form-group col-md-6">
+                                            <label for="nombre" style="font-size: medium">Nombres</label>
+                                            <input type="text" class="form-control" placeholder="Nombres"
+                                                [(ngModel)]="domiciliario.nombres" name="nombre" required maxlength="250"
+                                                #nombre="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                                                <div *ngIf="nombre.errors.required">
+                                                    Nombres es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="apellido" style="font-size: medium">Apellidos</label>
+                                            <input type="text" class="form-control" placeholder="Apellidos"
+                                                [(ngModel)]="domiciliario.apellidos" name="apellido" required maxlength="250"
+                                                #apellido="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                                                <div *ngIf="apellido.errors.required">
+                                                    Apellidos es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="identificacion" style="font-size: medium">Número de Identificación</label>
+                                            <input type="number" class="form-control" placeholder="Identificación"
+                                                [(ngModel)]="domiciliario.identificacion" name="identificacion" required max="20"
+                                                #identificacion="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="identificacion.invalid && (identificacion.dirty || identificacion.touched)">
+                                                <div *ngIf="identificacion.errors.required">
+                                                    Identificación es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                       
+                                        
+                                        <div class="form-group col-md-3">
+                                            <label for="grupoSanquineo" style="font-size: medium">Grupo Sanguineo</label>
+                                            <input type="text" class="form-control" placeholder="Grupo Sanguineo"
+                                                [(ngModel)]="domiciliario.grupoSanguineo" name="grupoSanguineo" required maxlength="10"
+                                                #grupo="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="grupo.invalid && (grupo.dirty || grupo.touched)">
+                                                <div *ngIf="grupo.errors.required">
+                                                    Grupo Sanquineo es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-3">
+                                            <label for="telefono" style="font-size: medium">Teléfono</label>
+                                            <input type="number" class="form-control" placeholder="Teléfono"
+                                                [(ngModel)]="domiciliario.telefono" name="telefono" required max="20"
+                                                #telefono="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                                                <div *ngIf="telefono.errors.required">
+                                                    Teléfono es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="tipoIdentificacion" style="font-size: medium">Usuario</label>
+                                            <select  class="form-control "
+                                                [(ngModel)]="domiciliario.usuarioId" name="usuarioId" required #user="ngModel">
+                                                <option [ngValue]="undefined" selected>
+                                                    Seleccionar
+                                                </option>
+                                                <option *ngFor="let user of usuarios" [ngValue]="user.usuarioId">
+                                                    {{user.username}}</option>
+                                            </select>
+                                            <div class="alert alert-danger"
+                                                *ngIf="user.invalid && (user.dirty || user.touched)">
+                                                <div *ngIf="user.errors.required">
+                                                    Usuario es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="tab-pane fade" id="prestaciones" role="tabpanel" aria-labelledby="prestaciones-tab">
+                                    <div class="form-row"> 
+                                        <div class="form-group col-md-6">
+                                            <label for="eps" style="font-size: medium">Eps</label>
+                                            <input type="text" class="form-control" placeholder="Eps"
+                                                [(ngModel)]="domiciliario.eps" name="eps" required maxlength="50"
+                                                #eps="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="eps.invalid && (eps.dirty || eps.touched)">
+                                                <div *ngIf="eps.errors.required">
+                                                    EPS es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="form-group col-md-6">
+                                            <label for="pension" style="font-size: medium">Pensión</label>
+                                            <input type="text" class="form-control" placeholder="Pensión"
+                                                [(ngModel)]="domiciliario.pension" name="pension" required maxlength="50"
+                                                #pension="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="pension.invalid && (pension.dirty || pension.touched)">
+                                                <div *ngIf="pension.errors.required">
+                                                    Pensión es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="form-group col-md-6">
+                                            <label for="arl" style="font-size: medium">Arl</label>
+                                            <input type="text" class="form-control" placeholder="Arl"
+                                                [(ngModel)]="domiciliario.arl" name="arl" required maxlength="50"
+                                                #arl="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="arl.invalid && (arl.dirty || arl.touched)">
+                                                <div *ngIf="arl.errors.required">
+                                                    ARL es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="tab-pane fade" id="disponibilidad" role="tabpanel" aria-labelledby="disponibilidad-tab">
+                                    <div class="form-row"> 
+                                        <div class="form-group col-md-6">
+                                            <label for="arl" style="font-size: medium">Horario Disponibilidad</label>
+                                            <input type="text" class="form-control" placeholder="Horario Disponibilidad"
+                                                [(ngModel)]="domiciliario.horarioDisponibilidad" name="horarioDisponibilidad" required maxlength="50"
+                                                #horario="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="horario.invalid && (horario.dirty || horario.touched)">
+                                                <div *ngIf="horario.errors.required">
+                                                    Horario es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="form-group col-md-6">
+                                            <label for="arl" style="font-size: medium">Días Disponibilidad</label>
+                                            <input type="text" class="form-control" placeholder="Días Disponibilidad"
+                                                [(ngModel)]="domiciliario.diasDisponibilidad" name="diasDisponibilidad" required maxlength="50"
+                                                #dias="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="dias.invalid && (dias.dirty || dias.touched)">
+                                                <div *ngIf="dias.errors.required">
+                                                    Días es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        
+                                        <div class="form-group col-md-3">
+                                            <label for="arl" style="font-size: medium">Duración Arriendo</label>
+                                            <input type="text" class="form-control" placeholder="Duración Arriendo"
+                                                [(ngModel)]="domiciliario.duracionArriendo" name="duracionArriendo" maxlength="50"
+                                                #duracion="ngModel">
+                                        </div>
+
+                                        <div class="form-group col-md-2">
+                                            <label for="arriendo" style="font-size: medium">Arriendo</label>
+                                            &nbsp;&nbsp;
+                                            <br>
+                                            <input type="checkbox" class="form" 
+                                             [(ngModel)]="domiciliario.arriendo" name="arriendo" >
+        
+                                        </div>
+                                    </div>    
+                                </div>
+
+                                <div class="tab-pane fade" id="cuenta" role="tabpanel" aria-labelledby="cuenta-tab">
+                                    <div class="form-row"> 
+                                        <div class="form-group col-md-4">
+                                            <label for="nombreBanco" style="font-size: medium">Nombre Banco</label>
+                                            <select  class="form-control "
+                                                [(ngModel)]="domiciliario.nombreBanco" name="nombreBanco" #nombreBanco="ngModel">
+                                                <option [ngValue]="undefined" selected>
+                                                    Seleccionar
+                                                </option>
+                                                <option [ngValue]="0"> Bancolombia</option>
+                                                <option [ngValue]="1"> Banco Popular</option>
+                                                <option [ngValue]="2"> Banco Agrario</option>
+                                                <option [ngValue]="3"> Banco AV Villas</option>
+                                                <option [ngValue]="4"> Banco Caja Social</option>
+                                                <option [ngValue]="5"> Scotiabank Colpatria</option>
+                                                <option [ngValue]="6"> Banco Cooperativo Coopcentral</option>
+                                                <option [ngValue]="7"> Banco Davivienda</option>
+                                                <option [ngValue]="8"> Banco De Bogota</option>
+                                                <option [ngValue]="9"> Banco De Occidente</option>
+                                                <option [ngValue]="10"> Banco Falabella</option>
+                                                <option [ngValue]="11"> Banco GNB Sudameris</option>
+                                                <option [ngValue]="12"> Banco Pichincha S.A.</option>
+                                                <option [ngValue]="13"> Bancoomeva S.A.</option>
+                                                <option [ngValue]="14"> Banco BBVA Colombia S.A.</option>
+                                                <option [ngValue]="15"> Citibank</option>
+                                                <option [ngValue]="16"> Banco Itaú</option>
+                                                <option [ngValue]="17"> Confiar Cooperativa Financiera</option>
+                                                <option [ngValue]="18"> Banco Credifinanciera</option>
+                                                <option [ngValue]="19"> Banco Santander Colombia</option>
+                                                <option [ngValue]="20"> Banco Serfinanza</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="tipoCuenta" style="font-size: medium">Tipo Cuenta</label>
+                                            <select  class="form-control "
+                                                [(ngModel)]="domiciliario.tipoCuentaBancaria" name="tipoCuentaBancaria" #tipoCuenta="ngModel">
+                                                <option [ngValue]="undefined" selected>
+                                                    Seleccionar
+                                                </option>
+                                                <option [ngValue]="0">
+                                                    Ahorros</option>
+                                                <option [ngValue]="1">
+                                                    Corriente</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-7">
+                                            <label for="cuenta" style="font-size: medium">Cuenta Bancaria</label>
+                                            <input type="text" class="form-control" placeholder="Cuenta Bancaria"
+                                                [(ngModel)]="domiciliario.cuentaBancaria" name="cuentaBancaria" maxlength="250"
+                                                #cuenta="ngModel">
+                                        </div>
+
+                                        <div class="form-group col-md-5">
+                                            <label for="nequi" style="font-size: medium">Cuenta Nequi</label>
+                                            <input type="text" class="form-control" placeholder="Cuenta Nequi"
+                                                [(ngModel)]="domiciliario.cuentaNequi" name="cuentaNequi" maxlength="250"
+                                                #nequi="ngModel">
+                                        </div>
+                                   
+                                        <div class="form-group col-md-5">
+                                            <label for="nequi" style="font-size: medium">Cuenta DaviPlata</label>
+                                            <input type="text" class="form-control" placeholder="Cuenta DaviPlata"
+                                                [(ngModel)]="domiciliario.cuentaDaviplata" name="cuentaDaviplata" maxlength="250"
+                                                #davi="ngModel">
+                                        </div>
+                                    </div>    
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button *ngIf="!domiciliario.domiciliarioId else elseBlock" (click)="create()" type="button"
+                        class="btn btn-primary" data-dismiss="modal" [disabled]="!domiciliarioForm.form.valid">Crear</button>
+                    <ng-template #elseBlock>
+                        <button (click)="update()" type="button" class="btn btn-primary" data-dismiss="modal"
+                            [disabled]="!domiciliarioForm.form.valid">Actualizar</button>
+                    </ng-template>
+                    <button (click)="cerrarModal()" type="button" class="btn btn-danger"
+                        data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

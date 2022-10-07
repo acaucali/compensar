@@ -1,0 +1,163 @@
+<div *ngIf="modalservice.modal" class="abrir-modal animacion fadeIn">
+
+    <div *ngIf="modalservice.modal" class="modal my-5" tabindex="-1" role="dialog" style="display:block;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background-color: #1e71b8;">
+                    <h5 class="modal-title">{{titulo}}</h5>
+                    <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form #usuarioForm="ngForm">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="usuario" style="font-size: medium">Usuario Login</label>
+                                    <input type="text" class="form-control" placeholder="Usuario"
+                                        [(ngModel)]="usuario.username" name="username" required maxlength="20"
+                                        #usuarioL="ngModel">
+                                    <div class="alert alert-danger"
+                                        *ngIf="usuarioL.invalid && (usuarioL.dirty || usuarioL.touched)">
+                                        <div *ngIf="usuarioL.errors.required">
+                                            Usuario es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="usuario" style="font-size: medium">Nombres</label>
+                                    <input type="text" class="form-control" placeholder="Nombres"
+                                        [(ngModel)]="usuario.nombres" name="nombre" required maxlength="20"
+                                        #nombre="ngModel">
+                                    <div class="alert alert-danger"
+                                        *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                                        <div *ngIf="nombre.errors.required">
+                                            Nombre es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="usuario" style="font-size: medium">Apellidos</label>
+                                    <input type="text" class="form-control" placeholder="Apellidos"
+                                        [(ngModel)]="usuario.apellidos" name="apellido" required maxlength="20"
+                                        #apellido="ngModel">
+                                    <div class="alert alert-danger"
+                                        *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                                        <div *ngIf="apellido.errors.required">
+                                            Apellido es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-md-4">
+                                    <label for="usuario" style="font-size: medium">Contraseña</label>
+                                    <input type="password" class="form-control" placeholder="Contraseña"
+                                        [(ngModel)]="usuario.password" name="password" required maxlength="20"
+                                        #contrasena="ngModel">
+                                    <div class="alert alert-danger"
+                                        *ngIf="contrasena.invalid && (contrasena.dirty || contrasena.touched)">
+                                        <div *ngIf="contrasena.errors.required">
+                                            Contraseña es requerida
+                                        </div>
+                                    </div>
+                                </div>
+
+                               
+                                <div class="form-group col-md-5">
+                                    <label for="usuario" style="font-size: medium">Número de Identificación</label>
+                                    <input type="number" class="form-control" placeholder="Identificación"
+                                        [(ngModel)]="usuario.identificacion" name="identificacion" required max="10"
+                                        #identificacion="ngModel">
+                                    <div class="alert alert-danger"
+                                        *ngIf="identificacion.invalid && (identificacion.dirty || identificacion.touched)">
+                                        <div *ngIf="identificacion.errors.required">
+                                            Identificación es requerido
+                                        </div>
+                                    </div>
+                                </div>                         
+
+                                <div class="form-group col-md-6">
+                                    <label for="usuario" style="font-size: medium">Correo Electrónico</label>
+                                    <input type="email" class="form-control" placeholder="Correo Electronico"
+                                        [(ngModel)]="usuario.email" name="email" required maxlength="100"
+                                        #correo="ngModel">
+                                    <div class="alert alert-danger"
+                                        *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                                        <div *ngIf="correo.errors.required">
+                                            Correo es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Campos Paciente -->
+
+                                <div class="form-group col-md-6">
+                                    <label for="usuario" style="font-size: medium">Dirección</label>
+                                    <input type="text" class="form-control" placeholder="Dirección"
+                                        [(ngModel)]="usuario.direccion" name="direccion" required maxlength="50"
+                                        #direccion="ngModel">
+                                    <div class="alert alert-danger"
+                                        *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
+                                        <div *ngIf="direccion.errors.required">
+                                            Dirección es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-md-4">
+                                    <label for="usuario" style="font-size: medium">Teléfono Contacto</label>
+                                    <input type="number" class="form-control" placeholder="Teléfono Contacto"
+                                        [(ngModel)]="usuario.telefono" name="telefono" required #celular="ngModel">
+                                    <div class="alert alert-danger"
+                                        *ngIf="celular.invalid && (celular.dirty || celular.touched)">
+                                        <div *ngIf="celular.errors.required">
+                                            Número Contacto es requerido
+                                        </div>
+                                    </div>
+                                </div>
+                                                               
+                                <div class="form-group col-md-4">
+                                    <label for="tipo" style="font-size: medium">Tipo Usuario</label>
+                                    <select class="form-control" name="tipoUsuario"
+                                    [(ngModel)]="usuario.tipoUsuario" name="tipoUsuario" required #tipoUsuario="ngModel"
+                                        required >
+                                        <option [ngValue]="undefined" selected>Seleccionar
+                                        <option [ngValue]="0">Administrador
+                                        <option [ngValue]="3">Usuario    
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="usuario" style="font-size: medium">Habilitado</label>
+                                    &nbsp;&nbsp;
+                                    <input type="checkbox"  
+                                     [(ngModel)]="usuario.habilitado" name="habilitado" #habilitado="ngModel">
+
+                                    <div class="alert alert-danger"
+                                        *ngIf="habilitado.invalid && (habilitado.dirty || habilitado.touched)">
+                                        <div *ngIf="habilitado.errors.required">
+                                            Habilitado es requerido
+                                        </div>
+                                    </div>
+                                </div>                           
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button *ngIf="!usuario.usuarioId else elseBlock" (click)="create()" type="button"
+                        class="btn btn-primary" data-dismiss="modal" [disabled]="!usuarioForm.form.valid">Crear</button>
+                    <ng-template #elseBlock>
+                        <button (click)="update()" type="button" class="btn btn-primary" data-dismiss="modal"
+                            [disabled]="!usuarioForm.form.valid">Actualizar</button>
+                    </ng-template>
+                    <button (click)="cerrarModal()" type="button" class="btn btn-danger"
+                        data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

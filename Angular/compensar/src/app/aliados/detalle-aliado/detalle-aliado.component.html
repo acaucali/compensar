@@ -1,0 +1,146 @@
+<div *ngIf="modalservice.modal" class="abrir-modal animacion fadeIn">
+
+    <div *ngIf="modalservice.modal" class="modal my-5" tabindex="-1" role="dialog" style="display:block;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background-color: #1e71b8;">
+                    <h5 class="modal-title">{{titulo}}</h5>
+                    <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form #aliadoForm="ngForm">
+                            
+                            <ul class="nav nav-tabs my-3" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                  <a class="nav-link active" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos" aria-selected="true"><span style="font-size: medium; color: black;">Datos Básicos</span></a>
+                                </li>
+                                
+                            </ul>
+                            
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-tab">
+                                    <div class="form-row"> 
+                                        <div class="form-group col-md-6">
+                                            <label for="razon" style="font-size: medium">Razón Social</label>
+                                            <input type="text" class="form-control" placeholder="Razón Social"
+                                                [(ngModel)]="aliado.razonSocial" name="razonSocial" required maxlength="250"
+                                                #razon="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="razon.invalid && (razon.dirty || razon.touched)">
+                                                <div *ngIf="razon.errors.required">
+                                                    Razón Social es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-6">
+                                            <label for="nombre" style="font-size: medium">Nombre</label>
+                                            <input type="text" class="form-control" placeholder="Nombre"
+                                                [(ngModel)]="aliado.nombre" name="nombre" required maxlength="250"
+                                                #nombre="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                                                <div *ngIf="nombre.errors.required">
+                                                    Nombre es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="form-group col-md-3">
+                                            <label for="nit" style="font-size: medium">Nit</label>
+                                            <input type="text" class="form-control" placeholder="Nit"
+                                                [(ngModel)]="aliado.nit" name="nit" required maxlength="250"
+                                                #nit="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="nit.invalid && (nit.dirty || nit.touched)">
+                                                <div *ngIf="nit.errors.required">
+                                                    Nit es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                             
+                                        <div class="form-group col-md-3">
+                                            <label for="telefono" style="font-size: medium">Teléfono</label>
+                                            <input type="number" class="form-control" placeholder="Teléfono"
+                                                [(ngModel)]="aliado.telefono" name="telefono" required max="20"
+                                                #telefono="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                                                <div *ngIf="telefono.errors.required">
+                                                    Teléfono es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="direccion" style="font-size: medium">Dirección</label>
+                                            <input type="text" class="form-control" placeholder="Dirección"
+                                                [(ngModel)]="aliado.direccionFactura" name="direccionFactura" required maxlength="250"
+                                                #direccion="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
+                                                <div *ngIf="direccion.errors.required">
+                                                    Dirección es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="form-group col-md-5">
+                                            <label for="email" style="font-size: medium">Correo</label>
+                                            <input type="text" class="form-control" placeholder="Correo"
+                                                [(ngModel)]="aliado.emailFactura" name="emailFactura" required maxlength="250"
+                                                #email="ngModel">
+                                            <div class="alert alert-danger"
+                                                *ngIf="email.invalid && (email.dirty || email.touched)">
+                                                <div *ngIf="email.errors.required">
+                                                    Correo es requerido
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--
+                                        <div class="form-group col-md-12" *ngIf="aliado.aliadoId">
+                                            <label for="documento" style="font-size: medium">Documento</label> <br>
+                                            <input (change)="seleccionarDocumento($event)" type="file" name="documento" class="form"
+                                              accept=".xlsx,.xls,.doc, .docx,.ppt,.pptx,.pdf" >
+                                            &nbsp; &nbsp;<button class="btn btn-rounded btn-primary" (click)="subirDocumento()" type="button" placement="bottom"
+                                              ngbTooltip="Subir documento" style="font-size: 8px" ><i class="fas fa-file-upload fa-2x"></i></button>
+                                            &nbsp;
+                                            <div class="form-group" *ngIf="aliado.aliadoId && aliado.documentoId >0">
+                                                <label style="font-size: medium" *ngIf="documento">{{documento.documentoNombre}}</label> &nbsp; &nbsp;
+                                                <button class="btn btn-rounded btn-primary" (click)="descargarDocumento()" type="button" placement="bottom"
+                                                ngbTooltip="Descargar documento" style="font-size: 8px"><i class="fas fa-download fa-2x"></i></button>
+                                                &nbsp;
+                                                <button class="btn btn-rounded btn-danger" (click)="eliminarDocumento()" type="button" placement="bottom"
+                                                ngbTooltip="Eliminar documento" style="font-size: 8px"><i class="far fa-trash-alt fa-2x"></i></button>
+                                      
+                                            </div>
+                                        </div>   
+                                        -->                                     
+                                    </div>    
+                                </div>
+                                
+                                
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button *ngIf="!aliado.aliadoId else elseBlock" (click)="create()" type="button"
+                        class="btn btn-primary" data-dismiss="modal" [disabled]="!aliadoForm.form.valid">Crear</button>
+                    <ng-template #elseBlock>
+                        <button (click)="update()" type="button" class="btn btn-primary" data-dismiss="modal"
+                            [disabled]="!aliadoForm.form.valid">Actualizar</button>
+                    </ng-template>
+                    <button (click)="cerrarModal()" type="button" class="btn btn-danger"
+                        data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,59 @@
+
+<detalle-domicilio [domiciliario]="domiciliarioSeleccionado"></detalle-domicilio>
+
+
+<div class="card border-dark mb-5 my-5 ">
+  <div class="card-header"><h6>Domiciliarios</h6></div>
+  <div class="card-body text-black">
+    
+    <div class="my-2 text-left">
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded bg-white" (click)="crearDomiciliario()" type="button" placement="bottom" mdbTooltip="Crear Domiciliario">
+        <i class="far fa-plus-square fa-lg"></i></button>
+
+    </div>
+
+    <div *ngIf="domiciliarios?.length==0" class="alert alert-info">
+      No hay registros en la base de datos!
+    </div>
+
+    <div>
+        <table mdbTable class="table table-bordered tabled-striped table-sm" id="tabla" style="border-collapse: collapse;">
+          <thead>
+            <tr class="text-white" style="background-color: #1e71b8;">
+              <td width="50" *ngIf="authService.hasRole('ROLE_ADMIN')">Acciones</td>
+              <td>Nombres</td>
+              <td>Apellidos</td>
+              <td>Identificación</td>
+              <td>Telefono</td>
+              <td>EPS</td>
+              <td>Pensión</td>
+              <td>ARL</td>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let el of elements | paginate: {itemsPerPage: 15, currentPage: pageDomi, id: 'pageDom'}">
+              <td width="50"  *ngIf="authService.hasRole('ROLE_ADMIN')">
+                  &nbsp;
+                <i class="fas fa-edit" (click)="abrirModal(el)" style="cursor: pointer;" ></i>
+                &nbsp;&nbsp;
+                <i class="fas fa-trash-alt" (click)='delete(el)' style="cursor: pointer;"></i>
+              </td>
+              <td>{{el.nombres}} </td>
+              <td>{{el.apellidos}} </td>
+              <td>{{el.identificacion}} </td>
+              <td>{{el.telefono}} </td>
+              <td>{{el.eps}} </td>
+              <td>{{el.pension}} </td>
+              <td>{{el.arl}} </td>
+            </tr>
+          </tbody>
+          
+        </table>
+        <pagination-controls id="pageDom" previousLabel="Anterior"
+          nextLabel="Siguiente" (pageChange)="pageDomi = $event"></pagination-controls>
+      </div>
+    
+    
+  </div>
+</div>

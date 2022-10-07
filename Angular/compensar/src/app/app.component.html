@@ -1,0 +1,16 @@
+<div class="content-container">
+    <div class="container-fluid">
+        <div class="row">
+            <div *ngIf="authService.isAuthenticated()">
+                <app-menu></app-menu>
+            </div>
+            <div class="col-md-2 main-content my-5 pb-5" >
+                <app-panel *ngIf="authService.isAuthenticated()"></app-panel>
+            </div>
+            
+            <div class="col-md-10 col-sm-8 main-content my-5 pb-5">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>    

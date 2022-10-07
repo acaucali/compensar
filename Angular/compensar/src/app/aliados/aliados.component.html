@@ -1,0 +1,57 @@
+<detalle-aliado [aliado]="aliadoSeleccionado"></detalle-aliado>
+
+
+<div class="card border-dark mb-5 my-5 ">
+  <div class="card-header"><h6>Registros</h6></div>
+  <div class="card-body text-black">
+    
+    <div class="my-2 text-left">
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded bg-white" (click)="crearAliado()" type="button" placement="bottom" mdbTooltip="Crear Aliado">
+        <i class="far fa-plus-square fa-lg"></i></button>
+
+    </div>
+
+    <div *ngIf="aliados?.length==0" class="alert alert-info">
+      No hay registros en la base de datos!
+    </div>
+
+    <div>
+        <table mdbTable class="table table-bordered tabled-striped table-sm" id="tabla" style="border-collapse: collapse;">
+          <thead>
+            <tr class="text-white" style="background-color: #1e71b8;">
+              <td width="50" *ngIf="authService.hasRole('ROLE_ADMIN')">Acciones</td>
+              <td>Razón Social</td>
+              <td>NIT</td>
+              <td>Nombre</td>
+              <td>Telefono</td>
+              <td>Dirección</td>
+              <td>Email</td>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let el of elements | paginate: {itemsPerPage: 15, currentPage: pageAli, id: 'pageAlia'}">
+              <td width="50"  *ngIf="authService.hasRole('ROLE_ADMIN')">
+                  &nbsp;
+                <i class="fas fa-edit" (click)="abrirModal(el)" style="cursor: pointer;" ></i>
+                &nbsp;&nbsp;
+                <i class="fas fa-trash-alt" (click)='delete(el)' style="cursor: pointer;"></i>
+              </td>
+              <td>{{el.razonSocial}} </td>
+              <td>{{el.nit}} </td>
+              <td>{{el.nombre}} </td>
+              <td>{{el.telefono}} </td>
+              <td>{{el.direccionFactura}} </td>
+              <td>{{el.emailFactura}} </td>
+              
+            </tr>
+          </tbody>
+          
+        </table>
+        <pagination-controls id="pageAlia" previousLabel="Anterior"
+          nextLabel="Siguiente" (pageChange)="pageAli = $event"></pagination-controls>
+      </div>
+    
+    
+  </div>
+</div>
